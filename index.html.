@@ -1,1 +1,75 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TheEchoNoob SMP Store</title>
+<style>
+body {
+  background:#101b14;
+  color:white;
+  font-family:Arial,sans-serif;
+  text-align:center;
+  padding:20px;
+}
+h1 {color:#65ff80;font-size:32px}
+.wallet,.item {
+  background:#203b29;
+  padding:20px;
+  margin:15px auto;
+  border-radius:15px;
+  max-width:350px;
+}
+button {
+  background:#65ff80;
+  padding:12px 20px;
+  border:0;
+  border-radius:8px;
+  font-weight:bold;
+  cursor:pointer;
+}
+</style>
+</head>
+<body>
+<h1>⛏ THE ECHONOO B SMP STORE</h1>
+<p>nightsmg.aternos.me</p>
+<div class="wallet">
+<h2>💰 Your Coins: <span id="coins">5000</span></h2>
+</div>
+<div id="shop"></div>
+<script>
+let coins=Number(localStorage.getItem("coins")??5000);
+const items=[
+["💎 64 Diamonds",500],
+["⚔️ Diamond Sword",1000],
+["🛡️ Netherite Armor",3000],
+["🪽 Elytra",2500],
+["✨ Totem of Undying",1500],
+["🍎 Golden Apples",800]
+];
+function update(){
+ document.getElementById("coins").textContent=coins;
+ localStorage.setItem("coins",coins);
+}
+items.forEach(([name,price])=>{
+ const div=document.createElement("div");
+ div.className="item";
+ const title=document.createElement("h2");
+ title.textContent=name;
+ const cost=document.createElement("p");
+ cost.textContent=price+" SMP Coins";
+ const btn=document.createElement("button");
+ btn.textContent="BUY ITEM";
+ btn.onclick=()=>{
+  if(coins<price){alert("Not enough coins!");return;}
+  coins-=price;
+  update();
+  alert("Order recorded! Contact TheEchoNoob for delivery.");
+ };
+ div.append(title,cost,btn);
+ document.getElementById("shop").appendChild(div);
+});
+update();
+</script>
+</body>
+</html>
